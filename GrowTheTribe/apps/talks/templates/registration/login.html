@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+
+{% block title %}Login{% endblock title %}
+
+{% block base_content %}
+
+<p><a href="{% url 'social:begin' 'facebook' %}?next={% firstof next '/' %}">
+    Login with Facebook
+</a></p>
+<p><a href="{% url 'social:begin' 'twitter' %}?next={% firstof next '/' %}">
+    Login with Twitter
+</a></p>
+
+{% endblock base_content %}

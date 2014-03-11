@@ -1,0 +1,4 @@
+Django==1.6.2
+django-taggit==0.11.2
+python-social-auth==0.1.21
+django-bootstrap-form

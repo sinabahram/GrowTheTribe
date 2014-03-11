@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+{% load staticfiles %}
+{% block title %}{% if form.instance.pk %}Edit{% else %}Add{% endif %} Talk{% endblock title %}
+
+{% block link %}{{ block.super }}
+    <style type="text/css">
+    .errorlist {
+        list-style: none;
+        color: #B94A48;
+        margin: 0px 0px 9px 0px;
+        padding: 0px;
+    }
+    </style>
+{% endblock link %}
+
+
+{% block base_content %}
+
+<div class="page-header">
+  <h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Talk</h1>
+</div>
+
+<form action="." method="post">
+    {% csrf_token %}
+
+    <legend>Talk</legend>
+    <div class="author">
+        {{ form|bootstrap }}
+    </div>
+
+    <legend>Appearance</legend>
+    <div class="appearance form-inline">
+        {{ appearanceformset.management_form }}
+        {% for form in appearanceformset %}
+            <div id="appearance-{{ forloop.counter0 }}"
+                 class="control-group{% if form.errors %} error{% endif %}">
+                {{ form|bootstrap }}
+
+            </div>
+        {% endfor %}
+    </div>
+    <div class="form-actions">
+        <a href="#" class="btn btn-inverse add-appearance">
+            <i class="icon-plus icon-white"></i> Add Appearance
+        </a>
+   </div>
+
+    <legend>Resource</legend>
+    <div class="resource form-inline">
+        {{ resourceformset.management_form }}
+        {% for form in resourceformset %}
+            <div id="resource-{{ forloop.counter0 }}"
+                 class="control-group{% if form.errors %} error{% endif %}">
+                {{ form|bootstrap }}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="form-actions">
+        <a href="#" class="btn btn-inverse add-resource">
+            <i class="icon-plus icon-white"></i> Add Resource
+        </a>
+        <button type="submit" class="btn btn-primary">
+            {% if form.instance.pk %}<i class="icon-edit icon-white"></i> Save
+            {% else %}<i class="icon-plus icon-white"></i> Add{% endif %} Talk
+        </button>
+    </div>
+</form>
+
+{% endblock base_content %}
+
+
+{% block bottom_script %}{{ block.super }}
+    <script src="{% static "underscore.min.js" %}" ></script>
+    <script type="text/html" id="resource-template">
+    <div id="resource-__prefix__">
+        {{ resourceformset.empty_form|bootstrap}}
+    </div>
+    </script>
+        <script type="text/html" id="appearance-template">
+    <div id="resource-__prefix__">
+        {{ appearanceformset.empty_form|bootstrap}}
+    </div>
+    </script>
+    <script>
+    $(function() {
+        $('.add-appearance').click(function(ev){
+            ev.preventDefault();
+            var count = parseInt($('#id_appearance_set-TOTAL_FORMS').attr('value'), 10);
+            var tmplMarkup = $('#appearance-template').html();
+            var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count)
+            console.log(compiledTmpl);
+            $('div.appearance').append(compiledTmpl);
+            $('#id_appearance_set-TOTAL_FORMS').attr('value', count + 1);
+        });
+        $('.add-resource').click(function(ev){
+            ev.preventDefault();
+            var count = parseInt($('#id_resource_set-TOTAL_FORMS').attr('value'), 10);
+            var tmplMarkup = $('#resource-template').html();
+            var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count)
+            console.log(compiledTmpl);
+            $('div.resource').append(compiledTmpl);
+            $('#id_resource_set-TOTAL_FORMS').attr('value', count + 1);
+        });
+    });
+    </script>{% endblock bottom_script %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+
+{% block title %}Home{% endblock title %}
+
+{% block base_content %}
+
+<div class="page-header">
+    <a class="btn btn-primary pull-right" href="{% url 'add_talk' %}">
+    <i class="icon-plus icon-white"></i> Add talk</a>
+
+</div>
+{% if latest_conference_list %}
+<table class="table table-striped">
+    <tr>
+        <th>Conference</th>
+    </tr>
+    {% for object in latest_conference_list %}
+    <tr>
+        <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endif %}
+{% if latest_appearance_list %}
+<table class="table table-striped">
+    <tr>
+        <th>Talk</th>
+    </tr>
+    {% for object in latest_appearance_list %}
+    <tr>
+        <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endif %}
+{% endblock base_content %}

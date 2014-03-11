@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+{% load url from future %}
+{% load staticfiles %}
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        {% block head %}
+            {% block title_tag %}
+                <title>
+                    {% block title %}
+                        {% if page.title %}{{ page.title }}{% endif %}
+                    {% endblock %}
+                </title>
+            {% endblock %}
+        {% block meta %}
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% endblock meta %}
+
+        {% block link %}
+
+        <link href="{% static 'bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+        <style type="text/css">
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+        </style>
+        <link href="{% static "bootstrap/bootstrap-responsive.min.css" %}" rel="stylesheet">
+
+
+        {% endblock link %}
+        {% block script %}{% endblock script %}{% endblock head %}
+    </head>
+
+    <body{% block body_attr %} class="{% block body_class %}{% endblock %}" id="{% block body_id %}{% endblock %}"{% endblock %}>
+
+        {% block base_header %}
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                        <li><a href="/">Home</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="#">{{ user.first_name }} {{ user.last_name }}</a></li>
+                            <li><a href="{% url 'logout' %}">Logout</a></li>
+                        {% else %}
+
+                            <li><a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a></li>
+                            <li><a href="{% url 'social:begin' 'twitter' %}">Login with Twitter</a></li>
+
+
+                        {% endif %}
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        {% endblock base_header %}
+
+        <div class="container">
+            {% block base_content %}
+            {% endblock base_content %}
+
+            {% block base_footer %}
+            <hr>
+            <footer>
+            </footer>
+            {% endblock base_footer %}
+
+        </div> <!-- /container -->
+
+        {% block bottom_script %}
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+        {% endblock bottom_script %}
+
+    </body>
+</html>
