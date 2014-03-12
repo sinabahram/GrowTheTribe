@@ -34,3 +34,9 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# oAuth and other secrets for apps
+secrets.py
+
+# sqlite3 databases, often used for testing
+*.sqlite3
