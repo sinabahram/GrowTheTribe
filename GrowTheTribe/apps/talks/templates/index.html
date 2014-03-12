@@ -24,14 +24,14 @@
 
 </table>
 {% endif %}
-{% if latest_appearance_list %}
+{% if latest_talk_list %}
 <table class="table table-striped">
     <tr>
         <th>Talk</th>
     </tr>
-    {% for object in latest_appearance_list %}
+    {% for object in latest_talk_list %}
     <tr>
-        <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
+        <td><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></td>
     </tr>
     {% endfor %}
 

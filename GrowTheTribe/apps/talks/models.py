@@ -17,6 +17,13 @@ class Conference(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    @property
+    def name(self):
+        return self.title
+
+    def __unicode__(self):
+        return self.title
+
 #     @models.permalink
 #     def get_absolute_url(self):
 #         return ('conference_detail', [self.pk])
@@ -36,6 +43,13 @@ class Talk(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    @property
+    def name(self):
+        return title
+
+    def __unicode__(self):
+        return self.title
+
     @models.permalink
     def get_absolute_url(self):
         return ('index', None)
@@ -49,12 +63,17 @@ class Appearance(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    @property
+    def name(self):
+        return '-'.join(
+            [self.talk.title, str(self.date)])
+
     def __unicode__(self):
         return self.name
 
-    @models.permalink
-    def get_absolute_url(self):
-        return ('appearance_detail', [self.pk])
+#     @models.permalink
+#     def get_absolute_url(self):
+#         return ('appearance_detail', [self.pk])
 
 
 class Resource(models.Model):
@@ -66,8 +85,12 @@ class Resource(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    @property
+    def name(self):
+        return self.title
+
     def __unicode__(self):
-        return self.name
+        return self.title
 
     @models.permalink
     def get_absolute_url(self):
