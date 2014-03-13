@@ -90,5 +90,6 @@ class ManageTalksCombinedView(CreateView):
 class ConferenceDetail(DetailView):
     model = Conference
 
+
 class AppearanceDetail(DetailView):
     model = Appearance

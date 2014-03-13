@@ -1,19 +1,19 @@
-from django import forms
+from django.forms import ModelForm
 from django.forms.models import inlineformset_factory
 from .models import Talk, Appearance, Resource
 
 
-class TalkForm(forms.ModelForm):
+class TalkForm(ModelForm):
     class Meta:
         model = Talk
 
 
-class AppearanceForm(forms.ModelForm):
+class AppearanceForm(ModelForm):
     class Meta:
         model = Appearance
 
 
-class ResourceForm(forms.ModelForm):
+class ResourceForm(ModelForm):
     class Meta:
         model = Resource
 

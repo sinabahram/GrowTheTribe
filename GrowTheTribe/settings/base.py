@@ -89,10 +89,6 @@ LOGIN_URL = '/login/'
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'basic_info']
 
-
-
-
-
 SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
 
