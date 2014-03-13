@@ -72,9 +72,11 @@ class ManageTalksCombinedView(CreateView):
         form = context['form']
         appearanceformset = context['appearanceformset']
         resourceformset = context['resourceformset']
+        form.instance.user = self.request.user
         if form.is_valid() and appearanceformset.is_valid() and \
            resourceformset.is_valid():
             self.object = form.save()
+
             appearanceformset.instance = self.object
             resourceformset.instance = self.object
             appearanceformset.save()

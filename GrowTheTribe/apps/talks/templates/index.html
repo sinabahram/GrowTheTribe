@@ -19,6 +19,8 @@
     {% for object in latest_conference_list %}
     <tr>
         <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
+        <td>{{ object.start_date }}</td>
+        <td>{{ object.city }}, {{ object.state }}</td>
     </tr>
     {% endfor %}
 
@@ -31,7 +33,9 @@
     </tr>
     {% for object in latest_talk_list %}
     <tr>
-        <td><a href="{{ object.get_absolute_url }}">{{ object.name }}</a></td>
+        <td><a href="{{ object.get_absolute_url }}">{{ object.talk.title }}</a></td>
+        <td>{{ object.conference.title }}</td>
+        <td>{{ object.authors.name }}</td>
     </tr>
     {% endfor %}
 

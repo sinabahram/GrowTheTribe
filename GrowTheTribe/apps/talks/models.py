@@ -1,5 +1,6 @@
 from django.db import models
 from taggit.managers import TaggableManager
+from django.contrib.auth.models import User
 
 
 class Conference(models.Model):
@@ -42,10 +43,11 @@ class Talk(models.Model):
     tags = TaggableManager()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, editable=False)
 
     @property
     def name(self):
-        return title
+        return self.title
 
     def __unicode__(self):
         return self.title
