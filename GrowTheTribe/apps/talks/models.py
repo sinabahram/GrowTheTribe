@@ -25,9 +25,9 @@ class Conference(models.Model):
     def __unicode__(self):
         return self.title
 
-#     @models.permalink
-#     def get_absolute_url(self):
-#         return ('conference_detail', [self.pk])
+    @models.permalink
+    def get_absolute_url(self):
+        return ('conference_detail', [self.pk])
 
 
 class Talk(models.Model):
@@ -73,9 +73,9 @@ class Appearance(models.Model):
     def __unicode__(self):
         return self.name
 
-#     @models.permalink
-#     def get_absolute_url(self):
-#         return ('appearance_detail', [self.pk])
+    @models.permalink
+    def get_absolute_url(self):
+        return ('appearance_detail', [self.pk])
 
 
 class Resource(models.Model):

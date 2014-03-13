@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 
 from django.contrib.auth import logout as auth_logout
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect, get_object_or_404
 
@@ -85,3 +85,10 @@ class ManageTalksCombinedView(CreateView):
             return super(ManageTalksCombinedView, self).form_valid(form)
         else:
             return self.render_to_response(self.get_context_data(form=form))
+
+
+class ConferenceDetail(DetailView):
+    model = Conference
+
+class AppearanceDetail(DetailView):
+    model = Appearance

@@ -38,7 +38,7 @@
     <tr>
         <td><a href="{{ object.get_absolute_url }}">{{ object.talk.title }}</a></td>
         <td>{{ object.conference.title }}</td>
-        <td>{{ object.authors.name }}</td>
+        <td>{{ object.authors.name }}{{ object.talk.user.first_name }} {{ object.talk.user.username }}</td>
     </tr>
     {% endfor %}
 
