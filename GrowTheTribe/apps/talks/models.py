@@ -58,6 +58,7 @@ class Talk(Model):
     def edit_view(self):
         return ('edit_talk', [self.pk])
 
+
 class Appearance(Model):
     talk = ForeignKey(Talk)
     conference = ForeignKey(Conference)

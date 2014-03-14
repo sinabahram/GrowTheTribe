@@ -1,5 +1,4 @@
 from .base import *
-import os
 
 DEBUG = False
 TEMPLATE_DEBUG = False

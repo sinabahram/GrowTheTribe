@@ -1,9 +1,8 @@
-from django.http import HttpResponse
-from django.template import RequestContext, loader
+from django.template import loader
 
 from django.contrib.auth import logout as auth_logout
 from django.views.generic import CreateView, UpdateView, DeleteView, \
-    DetailView, View, TemplateView
+    DetailView, TemplateView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect, get_object_or_404
 
@@ -22,8 +21,10 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['latest_talk_list'] = Appearance.objects.order_by('updated')[:5]
-        context['latest_conference_list'] = Conference.objects.order_by('updated')[:5]
+        context['latest_talk_list'] = \
+            Appearance.objects.order_by('updated')[:5]
+        context['latest_conference_list'] = \
+            Conference.objects.order_by('updated')[:5]
         return context
 
 
@@ -104,4 +105,3 @@ class ProfileView(TemplateView):
         context['my_talks'] = Appearance.objects.all()
 #         context['my_talks'] = Appearance.objects.get(user=self.request.user)
         return context
-

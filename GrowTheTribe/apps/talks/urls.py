@@ -2,8 +2,8 @@ from django.conf.urls import patterns, url
 
 from django.contrib.auth.decorators import login_required
 
-from .views import IndexView, ManageTalksCombinedView, logout, ConferenceDetail, \
-    AppearanceDetail, ProfileView
+from .views import IndexView, ManageTalksCombinedView, logout, \
+    ConferenceDetail, AppearanceDetail, ProfileView
 
 urlpatterns = patterns(
     '',
