@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+
+{% block title %}Home{% endblock title %}
+
+{% block base_content %}
+
+<a href="#">{{ user.first_name }} {{ user.last_name }}</a>
+
+<div class="page-header">
+    <a class="btn btn-primary pull-right" href="{% url 'add_talk' %}">
+    <i class="icon-plus icon-white"></i> Add talk</a>
+</div>
+
+{% if my_talks %}
+<table class="table table-striped">
+    <thead>
+        <th>Talk</th>
+    </thead>
+    <tbody>
+    {% for object in my_talks %}
+    <tr>
+        <td><a href="{{ object.get_absolute_url }}">{{ object.talk.title }}</a></td>
+        <td>{{ object.conference.title }}</td>
+        <td>{{ object.authors.name }}{{ object.talk.user.first_name }} {{ object.talk.user.username }}</td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+{% endif %}
+{% endblock base_content %}
