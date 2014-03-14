@@ -2,7 +2,8 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 
 from django.contrib.auth import logout as auth_logout
-from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import CreateView, UpdateView, DeleteView, \
+    DetailView, View, TemplateView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect, get_object_or_404
 
@@ -16,14 +17,14 @@ def logout(request):
     return redirect('index')
 
 
-def index(request):
-    latest_talk_list = Appearance.objects.order_by('updated')[:5]
-    latest_conference_list = Conference.objects.order_by('updated')[:5]
-    template = loader.get_template('index.html')
-    context = RequestContext(
-        request, {'latest_talk_list': latest_talk_list,
-                  'latest_conference_list': latest_conference_list})
-    return HttpResponse(template.render(context))
+class IndexView(TemplateView):
+    template_name = "index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['latest_talk_list'] = Appearance.objects.order_by('updated')[:5]
+        context['latest_conference_list'] = Conference.objects.order_by('updated')[:5]
+        return context
 
 
 class AppearanceCreate(CreateView):
@@ -93,3 +94,14 @@ class ConferenceDetail(DetailView):
 
 class AppearanceDetail(DetailView):
     model = Appearance
+
+
+class ProfileView(TemplateView):
+    template_name = "profile.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        context['my_talks'] = Appearance.objects.all()
+#         context['my_talks'] = Appearance.objects.get(user=self.request.user)
+        return context
+
