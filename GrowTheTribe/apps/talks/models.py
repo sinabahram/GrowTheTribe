@@ -10,11 +10,11 @@ class Conference(Model):
     end_date = DateField('conference end date')
     city = CharField(max_length=300)
     state = CharField(max_length=300, help_text="State / Province / District")
-    country = CharField(max_length=300)
+    country = CharField(max_length=300, default="USA")
     conference_home_url = URLField()
-    tags = TaggableManager()
-    short_name = CharField(max_length=30)
-    twitter_hash = CharField(max_length=30)
+    tags = TaggableManager(blank=True)
+    short_name = CharField(max_length=30, blank=True)
+    twitter_hash = CharField(max_length=30, blank=True)
     created = DateTimeField(auto_now_add=True)
     updated = DateTimeField(auto_now=True)
 
@@ -31,16 +31,14 @@ class Conference(Model):
 
 
 class Talk(Model):
-    type_choices = (
-        ('workshop', 'Workshop'),
-        ('presentation', 'Presentation'),
-        ('poster', 'Poster Presentation'),
-        ('panel', 'Panel Discussion'),
-    )
+    type_choices = (('workshop', 'Workshop'),
+                    ('presentation', 'Presentation'),
+                    ('poster', 'Poster Presentation'),
+                    ('panel', 'Panel Discussion'))
     title = CharField(max_length=300)
     type = CharField(max_length=12, choices=type_choices)
-    description = TextField()
-    tags = TaggableManager()
+    description = TextField(blank=True)
+    tags = TaggableManager(blank=True)
     created = DateTimeField(auto_now_add=True)
     updated = DateTimeField(auto_now=True)
     user = ForeignKey(User, editable=False)
@@ -56,6 +54,9 @@ class Talk(Model):
     def get_absolute_url(self):
         return ('index', None)
 
+    @permalink
+    def edit_view(self):
+        return ('edit_talk', [self.pk])
 
 class Appearance(Model):
     talk = ForeignKey(Talk)
