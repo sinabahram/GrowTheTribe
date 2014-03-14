@@ -1,11 +1,12 @@
-from django.contrib.admin.site import register
+from django.contrib import admin
 from .models import Conference
 from .models import Appearance
 from .models import Resource
 from .models import Talk
 
 
-register(Conference)
-register(Appearance)
-register(Resource)
-register(Talk)
+# Register your models here.
+admin.site.register(Conference)
+admin.site.register(Appearance)
+admin.site.register(Resource)
+admin.site.register(Talk)
