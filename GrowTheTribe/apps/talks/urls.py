@@ -2,12 +2,12 @@ from django.conf.urls import patterns, url
 
 from django.contrib.auth.decorators import login_required
 
-from .views import index, ManageTalksCombinedView, logout, ConferenceDetail, \
-    AppearanceDetail
+from .views import IndexView, ManageTalksCombinedView, logout, ConferenceDetail, \
+    AppearanceDetail, ProfileView
 
 urlpatterns = patterns(
     '',
-    url(r'^$', index, name='index'),
+    url(r'^$', IndexView.as_view(), name='index'),
     url(r'^logout/$', logout, name='logout'),
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^add/$', login_required(ManageTalksCombinedView.as_view()),
@@ -21,5 +21,6 @@ urlpatterns = patterns(
     url(r'^talk/(?P<pk>\d+)/$',
         AppearanceDetail.as_view(),
         name='appearance_detail'),
+    url(r'^profile/$', login_required(ProfileView.as_view()), name='profile'),
 
 )
