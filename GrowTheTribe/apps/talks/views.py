@@ -6,7 +6,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView, \
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect, get_object_or_404
 
-from .models import Appearance, Talk, Conference
+from .models import Appearance, Talk, Conference, Resource
 from .forms import TalkForm, ResourceFormSet, AppearanceFormSet
 
 
@@ -102,6 +102,10 @@ class ProfileView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
-        context['my_talks'] = Appearance.objects.all()
-#         context['my_talks'] = Appearance.objects.get(user=self.request.user)
+        try:
+            context['my_appearances'] = \
+                Appearance.objects.filter(talk__user=self.request.user)
+        except Appearance.DoesNotExist:
+            context['my_appearances'] = None
+
         return context

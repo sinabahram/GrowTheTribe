@@ -6,11 +6,29 @@
 
 {% block base_content %}
 
+<ul>
 
-{{ object.name }}
+<li>Talk Name: {{ object.talk.name }}</li>
+
+<li>Talk description: {{ object.talk.description }}</li>
+
+<li>Appearance description: {{ object.date }}</li>
+<li>Talk tags: {{ object.talk.tags }}</li>
+
+<li>Appearance authors: {{ object.authors }}</li>
+<li>Talk Type: {{ object.talk.type }}</li>
+
+</ul>
+
+Resources:
+   {% for o in object.talk.resource_set.all %}
+<li> {{ o.title }} </li>
+    {% endfor %}
 
 
-<a href="{{ object.talk.edit_view }}">Edit</a>
 
+{% if object.talk.user == user %}
+    <a href="{{ object.talk.edit_view }}">Edit</a>
+{% endif %}
 
 {% endblock base_content %}

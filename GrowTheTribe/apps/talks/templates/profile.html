@@ -13,13 +13,13 @@
     <i class="icon-plus icon-white"></i> Add talk</a>
 </div>
 
-{% if my_talks %}
+{% if my_appearances %}
 <table class="table table-striped">
     <thead>
         <th>Talk</th>
     </thead>
     <tbody>
-    {% for object in my_talks %}
+    {% for object in my_appearances %}
     <tr>
         <td><a href="{{ object.get_absolute_url }}">{{ object.talk.title }}</a></td>
         <td>{{ object.conference.title }}</td>
