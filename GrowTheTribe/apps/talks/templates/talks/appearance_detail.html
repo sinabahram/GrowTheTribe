@@ -1,34 +1,27 @@
 {% extends "base.html" %}
-
 {% load url from future %}
-
-{% block title %}Home{% endblock title %}
-
+{% block title %}{{ object.talk.name }} - Detail{% endblock title %}
 {% block base_content %}
 
 <ul>
-
-<li>Talk Name: {{ object.talk.name }}</li>
-
-<li>Talk description: {{ object.talk.description }}</li>
-
-<li>Appearance description: {{ object.date }}</li>
-<li>Talk tags: {{ object.talk.tags }}</li>
-
-<li>Appearance authors: {{ object.authors }}</li>
-<li>Talk Type: {{ object.talk.type }}</li>
-
+    <li>Talk Name: {{ object.talk.name }}</li>
+    <li>Talk description: {{ object.talk.description }}</li>
+    <li>Appearance description: {{ object.date }}</li>
+    <li>Talk tags: {{ object.talk.tags }}</li>
+    <li>Appearance authors: {{ object.authors }}</li>
+    <li>Talk Type: {{ object.talk.type }}</li>
 </ul>
 
 Resources:
-   {% for o in object.talk.resource_set.all %}
-<li> {{ o.title }} </li>
-    {% endfor %}
+<ul>
+{% for o in object.talk.resource_set.all %}
+    <li>{{ o.title }}</li>
+{% endfor %}
+</ul>
 
-
-
+<p>
 {% if object.talk.user == user %}
     <a href="{{ object.talk.edit_view }}">Edit</a>
 {% endif %}
-
+</p>
 {% endblock base_content %}
