@@ -1,5 +1,5 @@
 from django.db.models import Model, CharField, DateField, URLField, \
-    DateTimeField, TextField, ForeignKey, permalink
+    DateTimeField, TextField, ForeignKey, permalink, IntegerField
 from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
 
@@ -14,7 +14,8 @@ class Conference(Model):
     conference_home_url = URLField()
     tags = TaggableManager(blank=True)
     short_name = CharField(max_length=30, blank=True)
-    twitter_hash = CharField(max_length=30, blank=True)
+    twitter_hashtag = CharField(max_length=30, blank=True)
+    accessibility_needed_votes = IntegerField(editable=False, blank=True)
     created = DateTimeField(auto_now_add=True)
     updated = DateTimeField(auto_now=True)
 
@@ -84,7 +85,7 @@ class Resource(Model):
     talk = ForeignKey(Talk)
     title = CharField(max_length=300)
     description = TextField()
-    link = URLField()
+    url = URLField()
     tags = TaggableManager()
     created = DateTimeField(auto_now_add=True)
     updated = DateTimeField(auto_now=True)

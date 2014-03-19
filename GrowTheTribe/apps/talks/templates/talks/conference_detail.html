@@ -9,5 +9,10 @@
 
 {{ object.title }}
 
-
+Talks:
+<ul>
+{% for o in object.talk_set.all %}
+    <li>{{ o.title }}</li>
+{% endfor %}
+</ul>
 {% endblock base_content %}
